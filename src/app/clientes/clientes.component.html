@@ -1,0 +1,23 @@
+<div class="container my-2">
+  <h2 class="text-center">Lista de Clientes</h2>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Email</th>
+        <th class="text-smal0l">Fecha de creacion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of clientes">
+        <td scope="row">{{ c.id }}</td>
+        <td>{{ c.nombre }}</td>
+        <td>{{ c.apellido }}</td>
+        <td>{{ c.email }}</td>
+        <td>{{ c.createAt }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
