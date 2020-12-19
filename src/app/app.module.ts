@@ -7,8 +7,10 @@ import { FooterComponent } from './footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { ClienteService } from './clientes/cliente.service';
+
 //necesario para las rutas
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   { path: '', redirectTo: '/clientes', pathMatch: 'full' },
@@ -25,7 +27,8 @@ const routes: Routes = [
     ClientesComponent,
   ],
   /* se agregan rutas al router */
-  imports: [BrowserModule, RouterModule.forRoot(routes)],
+  //se agrego http client
+  imports: [BrowserModule, RouterModule.forRoot(routes), HttpClientModule],
   /* aqui se registran los servicios globales */
   providers: [ClienteService],
   bootstrap: [AppComponent],

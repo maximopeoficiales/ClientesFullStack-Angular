@@ -3,19 +3,19 @@ export class Cliente {
   nombre: string;
   apellido: string;
   email: string;
-  createAt: string;
+  createdAt: string;
 
   constructor(
     id: number,
     nombre: string,
     apellido: string,
     email: string,
-    createAt: string
+    createdAt: string
   ) {
     this.id = id;
     this.nombre = nombre;
     this.apellido = apellido;
     this.email = email;
-    this.createAt = createAt;
+    this.createdAt = createdAt;
   }
 }
