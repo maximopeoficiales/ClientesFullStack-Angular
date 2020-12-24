@@ -1,5 +1,10 @@
 <div class="container my-2">
   <h2 class="text-center">Lista de Clientes</h2>
+  <div class="my-2 text-left">
+    <button type="button" class="btn btn-primary" routerLink="/clientes/form">
+      Crear Cliente
+    </button>
+  </div>
   <table class="table table-bordered">
     <thead>
       <tr>
@@ -8,6 +13,7 @@
         <th>Apellido</th>
         <th>Email</th>
         <th class="text-smal0l">Fecha de creacion</th>
+        <th>Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +23,11 @@
         <td>{{ c.apellido }}</td>
         <td>{{ c.email }}</td>
         <td>{{ c.createdAt }}</td>
+        <td>
+          <a class="btn btn-primary" [routerLink]="['/clientes/form', c.id]">
+            Editar
+          </a>
+        </td>
       </tr>
     </tbody>
   </table>

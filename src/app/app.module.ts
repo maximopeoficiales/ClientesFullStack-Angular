@@ -11,11 +11,15 @@ import { ClienteService } from './clientes/cliente.service';
 //necesario para las rutas
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { FormComponent } from './clientes/form.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', redirectTo: '/clientes', pathMatch: 'full' },
   { path: 'directivas', component: DirectivaComponent },
   { path: 'clientes', component: ClientesComponent },
+  { path: 'clientes/form', component: FormComponent },
+  { path: 'clientes/form/:id', component: FormComponent },
 ];
 
 @NgModule({
@@ -25,10 +29,17 @@ const routes: Routes = [
     FooterComponent,
     DirectivaComponent,
     ClientesComponent,
+    FormComponent,
   ],
   /* se agregan rutas al router */
   //se agrego http client
-  imports: [BrowserModule, RouterModule.forRoot(routes), HttpClientModule],
+  // se agregos formsModule para manejegar formularios
+  imports: [
+    BrowserModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
+    FormsModule,
+  ],
   /* aqui se registran los servicios globales */
   providers: [ClienteService],
   bootstrap: [AppComponent],
