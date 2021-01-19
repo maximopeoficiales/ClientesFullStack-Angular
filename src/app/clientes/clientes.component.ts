@@ -22,7 +22,6 @@ export class ClientesComponent implements OnInit {
     // se suscribio para obtener los parametros
     this.activatedRoute.params.subscribe((params) => {
       let page: number = +params['page'];
-      console.log(page);
       if (!page) {
         page = 0;
       }

@@ -9,7 +9,12 @@
       >
     </li>
 
-    <!-- si la pagina es la actual disabled -->
+    <!-- primera pagina -->
+    <li class="page-item" [ngClass]="paginador.number == 0 ? 'disabled' : ''">
+      <a class="page-link" [routerLink]="['/clientes/page', 0]">Primera</a>
+    </li>
+
+    <!-- si la pagina es la actual active -->
     <li
       class="page-item"
       *ngFor="let pagina of paginas"
@@ -29,7 +34,16 @@
       >
     </li>
 
-    <li class="page-item" *ngIf="paginador.number < paginador.totalPages - 1">
+    <!-- Ultima pagina -->
+    <li class="page-item" [ngClass]="paginador.first ? 'disabled' : ''">
+      <a
+        class="page-link"
+        [routerLink]="['/clientes/page', paginador.totalPages - 1]"
+        >Ultima</a
+      >
+    </li>
+
+    <li class="page-item" *ngIf="paginador.last ? 'disabled' : ''">
       <a
         class="page-link"
         [routerLink]="['/clientes/page', paginador.number + 1]"
