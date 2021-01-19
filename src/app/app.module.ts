@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -12,12 +12,19 @@ import { ClienteService } from './clientes/cliente.service';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { FormComponent } from './clientes/form.component';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
+
+//cambiando el locale para fechas en español
+import localeES from '@angular/common/locales/es';
+import { registerLocaleData } from '@angular/common';
+import { PaginatorNavComponent } from './components/paginator-nav/paginator-nav.component';
+registerLocaleData(localeES);
 
 const routes: Routes = [
   { path: '', redirectTo: '/clientes', pathMatch: 'full' },
   { path: 'directivas', component: DirectivaComponent },
   { path: 'clientes', component: ClientesComponent },
+  { path: 'clientes/page/:page', component: ClientesComponent },
   { path: 'clientes/form', component: FormComponent },
   { path: 'clientes/form/:id', component: FormComponent },
 ];
@@ -30,6 +37,7 @@ const routes: Routes = [
     DirectivaComponent,
     ClientesComponent,
     FormComponent,
+    PaginatorNavComponent,
   ],
   /* se agregan rutas al router */
   //se agrego http client
@@ -41,7 +49,12 @@ const routes: Routes = [
     FormsModule,
   ],
   /* aqui se registran los servicios globales */
-  providers: [ClienteService],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'en-US',
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -2,8 +2,13 @@
   <div class="card-header">
     {{ titulo }}
   </div>
+  <!-- errores del backend -->
+  <div class="alert alert-danger" *ngIf="errores.length > 0">
+    <li *ngFor="let err of errores">{{ err }}</li>
+  </div>
+
   <div class="card-body">
-    <form (ngSubmit)="create()">
+    <form #clientForm="ngForm">
       <div class="form-group">
         <label>Nombre</label>
         <input
@@ -12,7 +17,22 @@
           placeholder="Ingrese su nombre"
           [(ngModel)]="cliente.nombre"
           name="nombre"
+          required
+          minlength="4"
+          #nombre="ngModel"
         />
+        <span
+          class="badge badge-danger my-1"
+          *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)"
+        >
+          <div class="" *ngIf="nombre.errors?.required">
+            Nombre es requerido
+          </div>
+
+          <div class="" *ngIf="nombre.errors?.minlength">
+            Nombre debe tener al menos 4 caracteres
+          </div>
+        </span>
       </div>
       <div class="form-group">
         <label>Apellido</label>
@@ -22,7 +42,17 @@
           placeholder="Ingrese su Apellido"
           [(ngModel)]="cliente.apellido"
           name="apellido"
+          required
+          #apellido="ngModel"
         />
+        <span
+          class="badge badge-danger my-1"
+          *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)"
+        >
+          <div class="" *ngIf="apellido.errors?.required">
+            Apellido es requerido
+          </div>
+        </span>
       </div>
       <div class="form-group">
         <label>Email</label>
@@ -32,11 +62,36 @@
           placeholder="Ingrese su email"
           [(ngModel)]="cliente.email"
           name="email"
+          required
+          email
+          #email="ngModel"
         />
+        <span
+          class="badge badge-danger my-2"
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+        >
+          <div class="" *ngIf="email.errors?.required">Email es requerido</div>
+        </span>
       </div>
-      <button type="submit" class="btn btn-primary btn-lg btn-block">
+      <button
+        type="button"
+        class="btn btn-primary btn-lg btn-block"
+        (click)="create()"
+        *ngIf="cliente.id == 0; else elseBlock"
+        [disabled]="!clientForm.form.valid"
+      >
         Crear
       </button>
+      <ng-template #elseBlock>
+        <button
+          type="button"
+          class="btn btn-dark btn-lg btn-block"
+          (click)="update()"
+          [disabled]="!clientForm.form.valid"
+        >
+          Update
+        </button>
+      </ng-template>
     </form>
   </div>
 </div>

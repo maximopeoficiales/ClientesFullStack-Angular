@@ -10,6 +10,7 @@ import swal from 'sweetalert2';
 export class FormComponent implements OnInit {
   cliente: Cliente = new Cliente();
   titulo = 'Crear Cliente';
+  errores: string[] = [];
   // activatedRoute necesario para obtener parametros url
   constructor(
     private clienteService: ClienteService,
@@ -22,14 +23,41 @@ export class FormComponent implements OnInit {
   }
   create(): void {
     //  crea el cliente, luego le redirije
-    this.clienteService.create(this.cliente).subscribe((cliente) => {
-      this.router.navigate(['/clientes']);
-      swal.fire(
-        'Nuevo Cliente',
-        `Cliente ${cliente.nombre} ha sido registrado`,
-        'success'
-      );
-    });
+    this.clienteService.create(this.cliente).subscribe(
+      (cliente) => {
+        this.router.navigate(['/clientes']);
+        swal.fire(
+          'Nuevo Cliente',
+          `Cliente ${cliente.nombre} ha sido registrado`,
+          'success'
+        );
+      },
+      (err) => {
+        this.errores = err.error.errors as string[];
+        console.error('Error del servidor:' + err.status);
+        console.log(this.errores);
+      }
+    );
+  }
+  update(): void {
+    //  crea el cliente, luego le redirije
+    this.clienteService.update(this.cliente).subscribe(
+      (data: any) => {
+        this.router.navigate(['/clientes']);
+        console.log(data);
+
+        swal.fire(
+          'Cliente Actualizado',
+          `Cliente ${data.client.nombre} ha sido actualizado`,
+          'success'
+        );
+      },
+      (err) => {
+        this.errores = err.error.errors as string[];
+        console.error('Error del servidor:' + err.status);
+        console.log(this.errores);
+      }
+    );
   }
   cargarCliente(): void {
     this.activatedRoute.params.subscribe((params) => {

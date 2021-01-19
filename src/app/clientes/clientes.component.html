@@ -5,14 +5,18 @@
       Crear Cliente
     </button>
   </div>
-  <table class="table table-bordered">
+  <div class="alert alert-warning" *ngIf="clientes.length == 0">
+    No hay clientes que revisar!
+  </div>
+
+  <table class="table table-bordered" *ngIf="clientes.length > 0">
     <thead>
       <tr>
         <th>ID</th>
         <th>Nombre</th>
         <th>Apellido</th>
         <th>Email</th>
-        <th class="text-smal0l">Fecha de creacion</th>
+        <th class="text-small">Fecha de creacion</th>
         <th>Acciones</th>
       </tr>
     </thead>
@@ -23,12 +27,17 @@
         <td>{{ c.apellido }}</td>
         <td>{{ c.email }}</td>
         <td>{{ c.createdAt }}</td>
-        <td>
-          <a class="btn btn-primary" [routerLink]="['/clientes/form', c.id]">
+        <td class="d-flex justify-content-center">
+          <a
+            class="btn btn-primary mr-2"
+            [routerLink]="['/clientes/form', c.id]"
+          >
             Editar
           </a>
+          <a class="btn btn-danger" (click)="delete(c)"> Eliminar </a>
         </td>
       </tr>
     </tbody>
   </table>
+  <paginator-nav *ngIf="paginador" [paginador]="paginador"></paginator-nav>
 </div>
