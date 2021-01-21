@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card my-4 bg-dark">
+      <img class="card-img-top" src="holder.js/100x180/" alt="" />
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="list-group" *ngIf="cliente">
+              <li class="list-group-item">Nombre: {{ cliente.nombre }}</li>
+              <li class="list-group-item">Apellido: {{ cliente.apellido }}</li>
+              <li class="list-group-item">Email: {{ cliente.email }}</li>
+              <li class="list-group-item">
+                Fecha de Creacion: {{ cliente.createdAt | date: "fullDate" }}
+              </li>
+            </ul>
+            <div class="input-group my-2">
+              <div class="custom-file">
+                <input
+                  (change)="seleccionarFoto($event)"
+                  type="file"
+                  class="custom-file-input"
+                  id="inputGroupFile04"
+                />
+                <label class="custom-file-label" for="inputGroupFile04"
+                  >Seleccionar Foto</label
+                >
+              </div>
+              <div class="input-group-append">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  [disabled]="!fotoSeleccionado"
+                  (click)="subirFoto()"
+                >
+                  Subir Foto
+                </button>
+              </div>
+            </div>
+            <!-- con ngStyle puedo usar css reactivo -->
+            <div class="progress w-100" *ngIf="progreso > 0">
+              <div
+                class="progress-bar progress-bar-striped bg-info"
+                role="progressbar"
+                [ngStyle]="{ width: progreso + '%' }"
+                attr.aria-valuenow="{{ progreso }}"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                {{ progreso }} %
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6" *ngIf="cliente?.photo">
+            <img
+              src="http://localhost:8080/api/uploads/img/{{ cliente.photo }}"
+              alt="{{ cliente.photo }}"
+              class="img-fluid"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

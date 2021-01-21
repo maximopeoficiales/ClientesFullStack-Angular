@@ -18,6 +18,7 @@ import { FormBuilder, FormsModule } from '@angular/forms';
 import localeES from '@angular/common/locales/es';
 import { registerLocaleData } from '@angular/common';
 import { PaginatorNavComponent } from './components/paginator-nav/paginator-nav.component';
+import { DetalleComponent } from './clientes/detalle/detalle.component';
 registerLocaleData(localeES);
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'clientes/page/:page', component: ClientesComponent },
   { path: 'clientes/form', component: FormComponent },
   { path: 'clientes/form/:id', component: FormComponent },
+  { path: 'clientes/ver/:id', component: DetalleComponent },
 ];
 
 @NgModule({
@@ -38,6 +40,7 @@ const routes: Routes = [
     ClientesComponent,
     FormComponent,
     PaginatorNavComponent,
+    DetalleComponent,
   ],
   /* se agregan rutas al router */
   //se agrego http client
@@ -52,7 +55,7 @@ const routes: Routes = [
   providers: [
     {
       provide: LOCALE_ID,
-      useValue: 'en-US',
+      useValue: 'es-US',
     },
   ],
   bootstrap: [AppComponent],

@@ -22,19 +22,26 @@
     </thead>
     <tbody>
       <tr *ngFor="let c of clientes">
-        <td scope="row">{{ c.id }}</td>
+        <td scope="row">
+          <button
+            class="btn btn-dark btn-sm"
+            [routerLink]="['/clientes/ver', c.id]"
+          >
+            {{ c.id }}
+          </button>
+        </td>
         <td>{{ c.nombre }}</td>
         <td>{{ c.apellido }}</td>
         <td>{{ c.email }}</td>
         <td>{{ c.createdAt }}</td>
         <td class="d-flex justify-content-center">
           <a
-            class="btn btn-primary mr-2"
+            class="btn btn-primary mr-2 btn-sm"
             [routerLink]="['/clientes/form', c.id]"
           >
             Editar
           </a>
-          <a class="btn btn-danger" (click)="delete(c)"> Eliminar </a>
+          <a class="btn btn-danger sm" (click)="delete(c)"> Eliminar </a>
         </td>
       </tr>
     </tbody>

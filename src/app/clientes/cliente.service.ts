@@ -2,7 +2,12 @@ import { Injectable } from '@angular/core';
 import { Cliente } from './cliente';
 // import { clientesData } from './ClienteData';
 //ncesaria para las peticiones
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpEvent,
+  HttpHeaders,
+  HttpRequest,
+} from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import Swal from 'sweetalert2';
@@ -10,6 +15,7 @@ import { Router } from '@angular/router';
 
 // necesario para el formateo de fechas
 import { formatDate, DatePipe } from '@angular/common';
+import swal from 'sweetalert2';
 //indica que es service
 @Injectable({
   providedIn: 'root',
@@ -84,6 +90,24 @@ export class ClienteService {
         return throwError(e);
       })
     );
+  }
+
+  // ahora es de esta forma para hacer un peticion diferencia
+  subirFoto(archivo: File, id: any): Observable<HttpEvent<{}>> {
+    const formData = new FormData();
+    formData.append('file', archivo);
+    formData.append('id', id);
+
+    const req = new HttpRequest(
+      'POST',
+      `${this.urlEndPoint}/upload/`,
+      formData,
+      {
+        reportProgress: true,
+      }
+    );
+
+    return this.http.request(req);
   }
 
   getMessages(e: any) {
